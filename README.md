@@ -1,13 +1,12 @@
 # bhgc_v2.ocio
 
-Simplified OCIO config for CG by Brian Hanke. Based on the new ASWF CG config.
+Simplified ACES 1.3 OCIO config for CG by Brian Hanke. Based on the new ASWF cg-config-v1.0.0_aces-v1.3_ocio-v2.0 config.
 
 **Features**
 
 - Streamlined to include only the core items needed for CG rendering and compositing.
 - Updated role and transform names to be more friendly and descriptive. 
-- Baked sRGB output transform for exporting to video formats, PNG, JPG, etc.
-- Now includes SDR, Cinema, and HDR views.
+- Baked output transforms for exporting to video formats, PNG, JPG, etc.
 - Finally free from the LUTs required by OCIO v1. This single config file is all you need!
 
 **Installation**
