@@ -2,7 +2,7 @@ ocio_profile_version: 2
 
 name: bhgc_v2
 
-description: Version 1.1.1, October 28 2022. Simplified OCIO config for CG by Brian Hanke (brianrhanke@outlook.com). Based on the new ASWF CG config.  To use, copy this file to a location of your choice and point your OCIO environment variable to it. Released under Creative Commons CC BY 4.0. Free to share and use, with attribution.
+description: Version 1.2.0, October 29 2022. Simplified OCIO config for CG by Brian Hanke (brianrhanke@outlook.com). Based on the new ASWF CG config.  To use, copy this file to a location of your choice and point your OCIO environment variable to it. Released under Creative Commons CC BY 4.0. Free to share and use, with attribution.
 
 roles:
   aces_interchange: ACES2065-1
@@ -24,22 +24,20 @@ roles:
   rendering: ACEScg
   default: ACEScg
   
-  # Custom core roles for CG with friendly names
-  bhgc_texture: sRGB texture
-  bhgc_linear: sRGB linear
-  bhgc_in_16-32bit: sRGB linear
-  bhgc_in_8bit: sRGB texture
+  # BHGC custom roles
+  bhgc_in_linear: sRGB linear
+  bhgc_in_texture: sRGB texture
   bhgc_in_data: Raw
   bhgc_in_acescg: ACEScg
   bhgc_out_srgb_sdr: Baked sRGB SDR
-  # End custom
+  bhgc_out_rec709_sdr: Baked Rec.709/1886 SDR
 
 displays:
   ACES:
     - !<View> {name: sRGB, view_transform: ACES 1.0 - SDR Video, display_colorspace: sRGB - Display}
     - !<View> {name: sRGB no tonemap, view_transform: Un-tone-mapped, display_colorspace: sRGB - Display}
-    - !<View> {name: Rec.709, view_transform: ACES 1.0 - SDR Video, display_colorspace: Rec.1886 Rec.709 - Display}
-    - !<View> {name: Rec.709 no tonemap, view_transform: Un-tone-mapped, display_colorspace: Rec.1886 Rec.709 - Display}
+    - !<View> {name: Rec.709/1886, view_transform: ACES 1.0 - SDR Video, display_colorspace: Rec.1886 Rec.709 - Display}
+    - !<View> {name: Rec.709/1886 no tonemap, view_transform: Un-tone-mapped, display_colorspace: Rec.1886 Rec.709 - Display}
     - !<View> {name: P3-D65, view_transform: ACES 1.0 - SDR Cinema, display_colorspace: P3-D65 - Display}
     - !<View> {name: P3-D65 no tonemap, view_transform: Un-tone-mapped, display_colorspace: P3-D65 - Display}
     - !<View> {name: Rec.2100-PQ, view_transform: ACES 1.1 - HDR Video (1000 nits & Rec.2020 lim), display_colorspace: Rec.2100-PQ - Display}
@@ -428,6 +426,19 @@ colorspaces:
     from_reference: !<GroupTransform>
       children:
         - !<DisplayViewTransform> {src: ACES2065-1, display: ACES, view: sRGB}
+        - !<RangeTransform> {min_in_value: 0., min_out_value: 0., max_in_value: 1., max_out_value: 1.}
+
+  - !<ColorSpace>
+    name: Baked Rec.709/1886 SDR
+    family: Output
+    description: |
+      Bake Rec.709/1886 - Display ACES 1.0 - SDR Video
+    isdata: false
+    categories: [ file-io ]
+    encoding: sdr-video
+    from_reference: !<GroupTransform>
+      children:
+        - !<DisplayViewTransform> {src: ACES2065-1, display: ACES, view: Rec.709/1886}
         - !<RangeTransform> {min_in_value: 0., min_out_value: 0., max_in_value: 1., max_out_value: 1.}
 		
 named_transforms:
