@@ -2,7 +2,7 @@ ocio_profile_version: 2
 
 name: bhgc_v2
 
-description: Version 1.2.0, October 29 2022. Simplified OCIO config for CG by Brian Hanke (brianrhanke@outlook.com). Based on the new ASWF CG config.  To use, copy this file to a location of your choice and point your OCIO environment variable to it. Released under Creative Commons CC BY 4.0. Free to share and use, with attribution.
+description: Version 1.2.1, December 20 2022. Simplified OCIO config for CG by Brian Hanke (brianrhanke@outlook.com). Based on the new ASWF CG config.  To use, copy this file to a location of your choice and point your OCIO environment variable to it. Released under Creative Commons CC BY 4.0. Free to share and use, with attribution.
 
 roles:
   aces_interchange: ACES2065-1
@@ -25,12 +25,12 @@ roles:
   default: ACEScg
   
   # BHGC custom roles
-  bhgc_in_linear: sRGB linear
-  bhgc_in_texture: sRGB texture
-  bhgc_in_data: Raw
-  bhgc_in_acescg: ACEScg
-  bhgc_out_srgb_sdr: Baked sRGB SDR
-  bhgc_out_rec709_sdr: Baked Rec.709 SDR
+  bhgc_linear: sRGB linear
+  bhgc_texture: sRGB texture
+  bhgc_data: Raw
+  bhgc_acescg: ACEScg
+  bhgc_out_srgb: sRGB SDR
+  bhgc_out_rec709: Rec.709 SDR
 
 displays:
   ACES:
@@ -416,10 +416,10 @@ colorspaces:
     allocation: uniform
 
   - !<ColorSpace>
-    name: Baked sRGB SDR
+    name: sRGB SDR
     family: Output
     description: |
-      Bake sRGB - Display ACES 1.0 - SDR Video
+      For outputting images baked with sRGB - Display ACES 1.0 - SDR Video
     isdata: false
     categories: [ file-io ]
     encoding: sdr-video
@@ -429,10 +429,10 @@ colorspaces:
         - !<RangeTransform> {min_in_value: 0., min_out_value: 0., max_in_value: 1., max_out_value: 1.}
 
   - !<ColorSpace>
-    name: Baked Rec.709 SDR
+    name: Rec.709 SDR
     family: Output
     description: |
-      Bake Rec.709/1886 - Display ACES 1.0 - SDR Video
+      For outputting images baked with Rec.709/1886 - Display ACES 1.0 - SDR Video
     isdata: false
     categories: [ file-io ]
     encoding: sdr-video
