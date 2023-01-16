@@ -36,8 +36,8 @@ displays:
   ACES:
     - !<View> {name: sRGB, view_transform: ACES 1.0 - SDR Video, display_colorspace: sRGB - Display}
     - !<View> {name: sRGB no tonemap, view_transform: Un-tone-mapped, display_colorspace: sRGB - Display}
-    - !<View> {name: Rec.709/1886, view_transform: ACES 1.0 - SDR Video, display_colorspace: Rec.1886 Rec.709 - Display}
-    - !<View> {name: Rec.709/1886 no tonemap, view_transform: Un-tone-mapped, display_colorspace: Rec.1886 Rec.709 - Display}
+    - !<View> {name: Rec.709-1886, view_transform: ACES 1.0 - SDR Video, display_colorspace: Rec.1886 Rec.709 - Display}
+    - !<View> {name: Rec.709-1886 no tonemap, view_transform: Un-tone-mapped, display_colorspace: Rec.1886 Rec.709 - Display}
     - !<View> {name: P3-D65, view_transform: ACES 1.0 - SDR Cinema, display_colorspace: P3-D65 - Display}
     - !<View> {name: P3-D65 no tonemap, view_transform: Un-tone-mapped, display_colorspace: P3-D65 - Display}
     - !<View> {name: Rec.2100-PQ, view_transform: ACES 1.1 - HDR Video (1000 nits & Rec.2020 lim), display_colorspace: Rec.2100-PQ - Display}
@@ -432,13 +432,13 @@ colorspaces:
     name: Rec.709 SDR
     family: Output
     description: |
-      For outputting images baked with Rec.709/1886 - Display ACES 1.0 - SDR Video
+      For outputting images baked with Rec.709-1886 - Display ACES 1.0 - SDR Video
     isdata: false
     categories: [ file-io ]
     encoding: sdr-video
     from_reference: !<GroupTransform>
       children:
-        - !<DisplayViewTransform> {src: ACES2065-1, display: ACES, view: Rec.709/1886}
+        - !<DisplayViewTransform> {src: ACES2065-1, display: ACES, view: Rec.709-1886}
         - !<RangeTransform> {min_in_value: 0., min_out_value: 0., max_in_value: 1., max_out_value: 1.}
 		
 named_transforms:
