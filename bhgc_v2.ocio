@@ -2,7 +2,7 @@ ocio_profile_version: 2
 
 name: bhgc_v2
 
-description: Version 1.2.2, December 20 2022. Simplified OCIO config for CG by Brian Hanke (brianrhanke@outlook.com). Based on the new ASWF CG config.  To use, copy this file to a location of your choice and point your OCIO environment variable to it. Released under Creative Commons CC BY 4.0. Free to share and use, with attribution.
+description: Version 2023.3, March 25, 2023. Simplified OCIO config for CG by Brian Hanke (brianrhanke@outlook.com). Based on the new ASWF CG config.  To use, copy this file to a location of your choice and point your OCIO environment variable to it. Released under Creative Commons CC BY 4.0. Free to share and use, with attribution.
 
 roles:
   aces_interchange: ACES2065-1
@@ -31,6 +31,17 @@ roles:
   bhgc_acescg: ACEScg
   bhgc_out_srgb: sRGB SDR
   bhgc_out_rec709: Rec.709 SDR
+
+  # Substance Painter roles
+
+  substance_3d_painter_standard_srgb: sRGB texture
+  substance_3d_painter_bitmap_import_8bit: sRGB texture
+  substance_3d_painter_bitmap_import_16bit: sRGB linear
+  substance_3d_painter_bitmap_import_floating: Raw
+  substance_3d_painter_substance_material: sRGB texture
+  substance_3d_painter_bitmap_export_8bit: sRGB texture
+  substance_3d_painter_bitmap_export_16bit: sRGB linear
+  substance_3d_painter_bitmap_export_floating: Raw
 
 displays:
   ACES:
