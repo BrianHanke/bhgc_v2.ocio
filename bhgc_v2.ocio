@@ -2,7 +2,7 @@ ocio_profile_version: 2
 
 name: bhgc_v2
 
-description: Version 2023.5.1, May 14, 2023. Back to basics OCIO config for CG by Brian Hanke (brianrhanke@outlook.com). Based on the new ASWF CG config.  To use, copy this file to a location of your choice and point your OCIO environment variable to it. Released under Creative Commons CC BY 4.0. Free to share and use, with attribution.
+description: Version 2023.5.2, May 15, 2023. Simplified OCIO config for CG by Brian Hanke (brianrhanke@outlook.com). Based on the new ASWF CG config.  To use, copy this file to a location of your choice and point your OCIO environment variable to it. Released under Creative Commons CC BY 4.0. Free to share and use, with attribution.
 
 roles:  
   aces_interchange: ACES2065-1
@@ -28,7 +28,7 @@ file_rules:
 displays:
   ACES:
     - !<View> {name: sRGB, view_transform: ACES 1.0 - SDR Video, display_colorspace: sRGB - Display}
-    - !<View> {name: Rec.709, view_transform: ACES 1.0 - SDR Video, display_colorspace: Rec.1886 Rec.709 - Display}
+    - !<View> {name: Rec.709-1886, view_transform: ACES 1.0 - SDR Video, display_colorspace: Rec.1886 Rec.709 - Display}
     - !<View> {name: Raw, display_colorspace: Raw}
 
 inactive_colorspaces: [CIE-XYZ-D65, sRGB - Display, Rec.1886 Rec.709 - Display]
@@ -43,6 +43,7 @@ display_colorspaces:
   - !<ColorSpace>
     name: CIE-XYZ-D65
     aliases: [cie_xyz_d65]
+    family: ""
     bitdepth: 32f
     description: The CIE XYZ (D65) display connection colorspace
     isdata: false
@@ -50,11 +51,10 @@ display_colorspaces:
 
   - !<ColorSpace>
     name: sRGB - Display
-    aliases: [srgb_display]
+    aliases: [sRGB, srgb_display]
     family: Display
     bitdepth: 32f
     description: Convert CIE XYZ (D65 white) to sRGB (piecewise EOTF)
-    isdata: false
     encoding: sdr-video
     allocation: uniform
     from_display_reference: !<BuiltinTransform> {style: DISPLAY - CIE-XYZ-D65_to_sRGB}
@@ -65,7 +65,6 @@ display_colorspaces:
     family: Display
     bitdepth: 32f
     description: Convert CIE XYZ (D65 white) to Rec.1886/Rec.709 (HD video)
-    isdata: false
     encoding: sdr-video
     allocation: uniform
     from_display_reference: !<BuiltinTransform> {style: DISPLAY - CIE-XYZ-D65_to_REC.1886-REC.709}
@@ -77,7 +76,6 @@ colorspaces:
     family: ACES
     bitdepth: 32f
     description: The Academy Color Encoding System reference colorspace
-    isdata: false
     encoding: scene-linear
     allocation: uniform
 
@@ -87,7 +85,6 @@ colorspaces:
     family: ACES
     bitdepth: 32f
     description: Convert ACEScc to ACES2065-1
-    isdata: false
     encoding: log
     allocation: uniform
     to_scene_reference: !<BuiltinTransform> {style: ACEScc_to_ACES2065-1}
@@ -98,7 +95,6 @@ colorspaces:
     family: ACES
     bitdepth: 32f
     description: Convert ACEScct to ACES2065-1
-    isdata: false
     encoding: log
     allocation: uniform
     to_scene_reference: !<BuiltinTransform> {style: ACEScct_to_ACES2065-1}
@@ -109,7 +105,6 @@ colorspaces:
     family: ACES
     bitdepth: 32f
     description: Convert ACEScg to ACES2065-1
-    isdata: false
     encoding: scene-linear
     allocation: uniform
     to_scene_reference: !<BuiltinTransform> {style: ACEScg_to_ACES2065-1}
@@ -120,7 +115,6 @@ colorspaces:
     family: Utility
     bitdepth: 32f
     description: Convert ACES2065-1 to linear Rec.709 primaries, D65 white point
-    isdata: false
     encoding: scene-linear
     allocation: uniform
     from_scene_reference: !<GroupTransform>
@@ -134,7 +128,6 @@ colorspaces:
     family: Utility
     bitdepth: 32f
     description: Convert ACES2065-1 to sRGB
-    isdata: false
     allocation: uniform
     from_scene_reference: !<GroupTransform>
       name: AP0 to sRGB Rec.709
@@ -148,6 +141,7 @@ colorspaces:
     family: Utility
     bitdepth: 32f
     description: The utility "Raw" colorspace
+    encoding: data
     isdata: true
     allocation: uniform
 
@@ -155,7 +149,8 @@ colorspaces:
     name: sRGB SDR
     family: Output
     description: For outputting images baked with sRGB - Display ACES 1.0 - SDR Video
-    isdata: false
+    allocation: uniform
+    encoding: sdr-video
     from_reference: !<GroupTransform>
       children:
         - !<DisplayViewTransform> {src: ACES2065-1, display: ACES, view: sRGB}
@@ -163,9 +158,11 @@ colorspaces:
 
   - !<ColorSpace>
     name: Rec.709 SDR
+    aliases: [Gamma2.2]
     family: Output
     description: For outputting images baked with Rec.709-1886 - Display ACES 1.0 - SDR Video
-    isdata: false
+    allocation: uniform
+    encoding: sdr-video
     from_reference: !<GroupTransform>
       children:
         - !<DisplayViewTransform> {src: ACES2065-1, display: ACES, view: Rec.709-1886}
