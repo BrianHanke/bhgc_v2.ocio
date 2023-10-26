@@ -189,5 +189,5 @@ colorspaces:
     encoding: sdr-video
     from_reference: !<GroupTransform>
       children:
-        - !<DisplayViewTransform> {src: ACES2065-1, display: ACES, view: Rec.709-1886}
+        - !<DisplayViewTransform> {src: ACES2065-1, display: ACES, view: Rec.709}
         - !<RangeTransform> {min_in_value: 0., min_out_value: 0., max_in_value: 1., max_out_value: 1.}
