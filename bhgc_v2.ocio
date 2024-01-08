@@ -1,42 +1,64 @@
-ocio_profile_version: 2
+ocio_profile_version: 2.1
 
+environment:
+  {}
+search_path: ""
+strictparsing: true
+luma: [0.2126, 0.7152, 0.0722]
 name: bhgc_v2
+description: |
+  Version 2024.1.0, January 8, 2024. 
 
-description: Version 2023.10, October 25, 2023. Simplified OCIO config for CG by Brian Hanke (brianrhanke@outlook.com). Based on the new ASWF CG config.  To use, copy this file to a location of your choice and point your OCIO environment variable to it. Released under Creative Commons CC BY 4.0. Free to share and use, with attribution.
+  Simplified OCIO config for CG by Brian Hanke (brianrhanke@outlook.com). Based on the new ASWF CG config.  
+
+  To use, copy this file to a location of your choice and point your OCIO environment variable to it. 
+
+  This work is licensed under CC BY 4.0. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
 
 roles:  
   aces_interchange: ACES2065-1
-
   cie_xyz_d65_interchange: CIE-XYZ-D65
 
-  matte_paint: sRGB texture
+  color_picking: sRGB texture
+  texture_paint: sRGB texture
   
   color_timing: ACEScct
-  texture_paint: ACEScct
   compositing_log: ACEScct
+  matte_paint: ACEScct
 
   data: Raw
-  reference: Raw
 
-  color_picking: ACEScg
   rendering: ACEScg
   scene_linear: ACEScg
 
 file_rules:
-  - !<Rule> {name: Default, colorspace: Raw}
+  - !<Rule> {name: Default, colorspace: ACES2065-1}
 
 displays:
   ACES:
     - !<View> {name: sRGB, view_transform: ACES 1.0 - SDR Video, display_colorspace: sRGB - Display}
     - !<View> {name: Rec.709, view_transform: ACES 1.0 - SDR Video, display_colorspace: Rec.1886 Rec.709 - Display}
+    - !<View> {name: ACES 2.0 sRGB, colorspace: Candidate CAMDRT rev050 - sRGB}
+    - !<View> {name: ACES 2.0 Rec.709, colorspace: Candidate CAMDRT rev050 - Rec.709}
     - !<View> {name: Raw, display_colorspace: Raw}
 
-inactive_colorspaces: [CIE-XYZ-D65, sRGB - Display, Rec.1886 Rec.709 - Display, Candidate CAMDRT rev035 - sRGB, Candidate CAMDRT rev035 - Rec.709]
+inactive_colorspaces: [CIE-XYZ-D65, sRGB - Display, Rec.1886 Rec.709 - Display]
 
 view_transforms:
   - !<ViewTransform>
     name: ACES 1.0 - SDR Video
-    description: Component of ACES Output Transforms for SDR D65 video
+    description: |
+      Component of ACES Output Transforms for SDR D65 video
+
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ODT.Academy.RGBmonitor_100nits_dim.a1.0.3
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ODT.Academy.Rec709_100nits_dim.a1.0.3
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ODT.Academy.Rec2020_100nits_dim.a1.0.3
+
+      AMF Components
+      --------------
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:InvODT.Academy.RGBmonitor_100nits_dim.a1.0.3
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:InvODT.Academy.Rec709_100nits_dim.a1.0.3
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:InvODT.Academy.Rec2020_100nits_dim.a1.0.3
     from_scene_reference: !<BuiltinTransform> {style: ACES-OUTPUT - ACES2065-1_to_CIE-XYZ-D65 - SDR-VIDEO_1.0}
 
 display_colorspaces:
@@ -56,7 +78,15 @@ display_colorspaces:
     family: Display
     equalitygroup: ""
     bitdepth: 32f
-    description: Convert CIE XYZ (D65 white) to sRGB (piecewise EOTF)
+    description: |
+      Convert CIE XYZ (D65 white) to sRGB (piecewise EOTF)
+
+      AMF Components
+      --------------
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ODT.Academy.RGBmonitor_100nits_dim.a1.0.3
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:InvODT.Academy.RGBmonitor_100nits_dim.a1.0.3
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ODT.Academy.RGBmonitor_D60sim_100nits_dim.a1.0.3
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:InvODT.Academy.RGBmonitor_D60sim_100nits_dim.a1.0.3
     isdata: false
     categories: [file-io]
     encoding: sdr-video
@@ -69,7 +99,15 @@ display_colorspaces:
     family: Display
     equalitygroup: ""
     bitdepth: 32f
-    description: Convert CIE XYZ (D65 white) to Rec.1886/Rec.709 (HD video)
+    description: |
+      Convert CIE XYZ (D65 white) to Rec.1886/Rec.709 (HD video)
+
+      AMF Components
+      --------------
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ODT.Academy.Rec709_100nits_dim.a1.0.3
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:InvODT.Academy.Rec709_100nits_dim.a1.0.3
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ODT.Academy.Rec709_D60sim_100nits_dim.a1.0.3
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:InvODT.Academy.Rec709_D60sim_100nits_dim.a1.0.3
     isdata: false
     categories: [file-io]
     encoding: sdr-video
@@ -95,7 +133,14 @@ colorspaces:
     family: ACES
     equalitygroup: ""
     bitdepth: 32f
-    description: Convert ACEScc to ACES2065-1
+    description: |
+      Convert ACEScc to ACES2065-1
+
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ACEScsc.Academy.ACEScc_to_ACES.a1.0.3
+
+      AMF Components
+      --------------
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ACEScsc.Academy.ACES_to_ACEScc.a1.0.3
     isdata: false
     categories: [file-io]
     encoding: log
@@ -108,7 +153,14 @@ colorspaces:
     family: ACES
     equalitygroup: ""
     bitdepth: 32f
-    description: Convert ACEScct to ACES2065-1
+    description: |
+      Convert ACEScct to ACES2065-1
+
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ACEScsc.Academy.ACEScct_to_ACES.a1.0.3
+
+      AMF Components
+      --------------
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ACEScsc.Academy.ACES_to_ACEScct.a1.0.3
     isdata: false
     categories: [file-io, working-space]
     encoding: log
@@ -121,9 +173,16 @@ colorspaces:
     family: ACES
     equalitygroup: ""
     bitdepth: 32f
-    description: Convert ACEScg to ACES2065-1
+    description: |
+      Convert ACEScg to ACES2065-1
+
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ACEScsc.Academy.ACEScg_to_ACES.a1.0.3
+
+      AMF Components
+      --------------
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ACEScsc.Academy.ACES_to_ACEScg.a1.0.3
     isdata: false
-    categories: [file-io, working-space]
+    categories: [file-io, working-space, texture]
     encoding: scene-linear
     allocation: uniform
     to_scene_reference: !<BuiltinTransform> {style: ACEScg_to_ACES2065-1}
@@ -134,9 +193,12 @@ colorspaces:
     family: Utility
     equalitygroup: ""
     bitdepth: 32f
-    description: Convert ACES2065-1 to linear Rec.709 primaries, D65 white point
+    description: |
+      Convert ACES2065-1 to linear Rec.709 primaries, D65 white point
+
+      CLFtransformID: urn:aswf:ocio:transformId:1.0:OCIO:Utility:AP0_to_Linear_Rec709:1.0
     isdata: false
-    categories: [file-io, working-space]
+    categories: [file-io, working-space, texture]
     encoding: scene-linear
     allocation: uniform
     from_scene_reference: !<GroupTransform>
@@ -150,9 +212,12 @@ colorspaces:
     family: Utility
     equalitygroup: ""
     bitdepth: 32f
-    description: Convert ACES2065-1 to sRGB
+    description: |
+      Convert ACES2065-1 to sRGB
+
+      CLFtransformID: urn:aswf:ocio:transformId:1.0:OCIO:Utility:AP0_to_sRGB-Texture:1.0
     isdata: false
-    categories: [file-io]
+    categories: [file-io, texture]
     allocation: uniform
     from_scene_reference: !<GroupTransform>
       name: AP0 to sRGB Rec.709
@@ -168,25 +233,35 @@ colorspaces:
     bitdepth: 32f
     description: The utility Raw colorspace
     isdata: true
-    categories: [file-io]
+    categories: [file-io, texture]
     allocation: uniform
 
   - !<ColorSpace>
-    name: sRGB SDR
-    family: Output
-    description: For outputting images baked with sRGB - Display ACES 1.0 - SDR Video
+    name: sRGB neutral
+    family: Utility
+    equalitygroup: ""
+    bitdepth: 32f
+    description: For neutral input and output of images on sRGB - Display ACES 1.0 - SDR Video displays
+    isdata: false
+    categories: [file-io]
     encoding: sdr-video
+    allocation: uniform
     from_reference: !<GroupTransform>
       children:
         - !<DisplayViewTransform> {src: ACES2065-1, display: ACES, view: sRGB}
         - !<RangeTransform> {min_in_value: 0., min_out_value: 0., max_in_value: 1., max_out_value: 1.}
 
   - !<ColorSpace>
-    name: Rec.709 SDR
+    name: Rec.709 neutral
     aliases: [Gamma2.2]
-    family: Output
-    description: For outputting images baked with Rec.709-1886 - Display ACES 1.0 - SDR Video
+    family: Utility
+    equalitygroup: ""
+    bitdepth: 32f
+    description: For neutral input and output of images on Rec.1886 Rec.709 - Display ACES 1.0 - SDR Video displays
+    isdata: false
+    categories: [file-io]
     encoding: sdr-video
+    allocation: uniform
     from_reference: !<GroupTransform>
       children:
         - !<DisplayViewTransform> {src: ACES2065-1, display: ACES, view: Rec.709}
