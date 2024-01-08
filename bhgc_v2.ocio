@@ -38,8 +38,6 @@ displays:
   ACES:
     - !<View> {name: sRGB, view_transform: ACES 1.0 - SDR Video, display_colorspace: sRGB - Display}
     - !<View> {name: Rec.709, view_transform: ACES 1.0 - SDR Video, display_colorspace: Rec.1886 Rec.709 - Display}
-    - !<View> {name: ACES 2.0 sRGB, colorspace: Candidate CAMDRT rev050 - sRGB}
-    - !<View> {name: ACES 2.0 Rec.709, colorspace: Candidate CAMDRT rev050 - Rec.709}
     - !<View> {name: Raw, display_colorspace: Raw}
 
 inactive_colorspaces: [CIE-XYZ-D65, sRGB - Display, Rec.1886 Rec.709 - Display]
