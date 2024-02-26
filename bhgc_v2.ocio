@@ -2,12 +2,12 @@ ocio_profile_version: 2.1
 
 environment:
   {}
-search_path: bhgc_v2_luts
+search_path: ""
 strictparsing: true
 luma: [0.2126, 0.7152, 0.0722]
 name: bhgc_v2
 description: |
-  Version 2024.2.1, February 2, 2024. 
+  Version 2024.2.2, February 26, 2024. 
 
   Simplified OCIO config for CG by Brian Hanke (brianrhanke@outlook.com). Based on the new ASWF CG config.  
 
@@ -194,7 +194,7 @@ colorspaces:
 
   - !<ColorSpace>
     name: sRGB texture
-    aliases: [srgb_tx, Utility - sRGB texture, srgb_texture, Input - Generic - sRGB texture]
+    aliases: [srgb, srgb_tx, Utility - sRGB texture, srgb_texture, Input - Generic - sRGB texture]
     family: Utility
     equalitygroup: ""
     bitdepth: 32f
