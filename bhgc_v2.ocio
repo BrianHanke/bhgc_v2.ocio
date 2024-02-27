@@ -7,7 +7,7 @@ strictparsing: true
 luma: [0.2126, 0.7152, 0.0722]
 name: bhgc_v2
 description: |
-  Version 2024.2.2, February 26, 2024. 
+  Version 2024.2.3, February 27, 2024.
 
   Simplified OCIO config for CG by Brian Hanke (brianrhanke@outlook.com). Based on the new ASWF CG config.  
 
@@ -131,8 +131,12 @@ colorspaces:
     bitdepth: 32f
     description: |
       Convert ACEScc to ACES2065-1
-      
+
       ACEStransformID: urn:ampas:aces:transformId:v1.5:ACEScsc.Academy.ACEScc_to_ACES.a1.0.3
+
+      AMF Components
+      --------------
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ACEScsc.Academy.ACES_to_ACEScc.a1.0.3
     isdata: false
     categories: [file-io]
     encoding: log
@@ -147,8 +151,12 @@ colorspaces:
     bitdepth: 32f
     description: |
       Convert ACEScct to ACES2065-1
-      
+
       ACEStransformID: urn:ampas:aces:transformId:v1.5:ACEScsc.Academy.ACEScct_to_ACES.a1.0.3
+
+      AMF Components
+      --------------
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ACEScsc.Academy.ACES_to_ACEScct.a1.0.3
     isdata: false
     categories: [file-io, working-space]
     encoding: log
@@ -163,10 +171,14 @@ colorspaces:
     bitdepth: 32f
     description: |
       Convert ACEScg to ACES2065-1
-      
+
       ACEStransformID: urn:ampas:aces:transformId:v1.5:ACEScsc.Academy.ACEScg_to_ACES.a1.0.3
+
+      AMF Components
+      --------------
+      ACEStransformID: urn:ampas:aces:transformId:v1.5:ACEScsc.Academy.ACES_to_ACEScg.a1.0.3
     isdata: false
-    categories: [file-io, working-space]
+    categories: [file-io, working-space, texture]
     encoding: scene-linear
     allocation: uniform
     to_scene_reference: !<BuiltinTransform> {style: ACEScg_to_ACES2065-1}
@@ -179,10 +191,10 @@ colorspaces:
     bitdepth: 32f
     description: |
       Convert ACES2065-1 to linear Rec.709 primaries, D65 white point
-      
+
       CLFtransformID: urn:aswf:ocio:transformId:1.0:OCIO:Utility:AP0_to_Linear_Rec709:1.0
     isdata: false
-    categories: [file-io, working-space]
+    categories: [file-io, working-space, texture]
     encoding: scene-linear
     allocation: uniform
     from_scene_reference: !<GroupTransform>
@@ -198,10 +210,10 @@ colorspaces:
     bitdepth: 32f
     description: |
       Convert ACES2065-1 to sRGB
-      
+
       CLFtransformID: urn:aswf:ocio:transformId:1.0:OCIO:Utility:AP0_to_sRGB-Texture:1.0
     isdata: false
-    categories: [file-io]
+    categories: [file-io, texture]
     allocation: uniform
     from_scene_reference: !<GroupTransform>
       name: AP0 to sRGB Rec.709
@@ -217,7 +229,7 @@ colorspaces:
     bitdepth: 32f
     description: The utility "Raw" colorspace.
     isdata: true
-    categories: [file-io]
+    categories: [file-io, texture]
     allocation: uniform
 
   - !<ColorSpace>
@@ -227,8 +239,7 @@ colorspaces:
     bitdepth: 32f
     description: For neutral input and output of images on sRGB - Display ACES 1.0 - SDR Video displays
     isdata: false
-    categories: [file-io]
-    encoding: sdr-video
+    categories: [file-io, texture]
     allocation: uniform
     from_reference: !<GroupTransform>
       children:
@@ -243,8 +254,7 @@ colorspaces:
     bitdepth: 32f
     description: For neutral input and output of images on Rec.1886 Rec.709 - Display ACES 1.0 - SDR Video displays
     isdata: false
-    categories: [file-io]
-    encoding: sdr-video
+    categories: [file-io, texture]
     allocation: uniform
     from_reference: !<GroupTransform>
       children:
