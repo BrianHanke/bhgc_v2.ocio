@@ -13,8 +13,6 @@ description: |
 
   To use, copy this file to a location of your choice and point your OCIO environment variable to it. 
 
-  This work is licensed under CC BY 4.0. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
-
 roles:  
   aces_interchange: ACES2065-1
   cie_xyz_d65_interchange: CIE-XYZ-D65
