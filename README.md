@@ -1,6 +1,6 @@
 # bhgc_v2.ocio
 
-Simplified ACES 1.3 OCIO config for CG by Brian Hanke. Based on the ASWF cg-config-v1.0.0_aces-v1.3_ocio-v2.0 config.
+Simplified ACES 1.3 OCIO config for CG by Brian Hanke. Based on the ASWF cg-config-v2.0.0_aces-v1.3_ocio-v2.1 config.
 
 **Features**
 
